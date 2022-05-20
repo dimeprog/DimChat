@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "200946931372",
+    "project_id": "dimchat-dd5fe",
+    "storage_bucket": "dimchat-dd5fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200946931372:android:2a6931f1964ed50f7e3109",
+        "android_client_info": {
+          "package_name": "com.example.dimchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "200946931372-fqevp4ol8fh5ffaog78r6to1cj3ltqb1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKxwVvk65aCIibybqPMTY6KXYGLwdutS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "200946931372-fqevp4ol8fh5ffaog78r6to1cj3ltqb1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
