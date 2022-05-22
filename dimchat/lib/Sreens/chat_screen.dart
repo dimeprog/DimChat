@@ -1,8 +1,7 @@
+import 'package:dimchat/widgets/chats/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase/firestore.dart';
-// import 'package:firebase/firebase.dart';
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -19,35 +18,32 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: StreamBuilder<QuerySnapshot>(
-            stream: _chatStream,
-            builder: (context, querySnapShot) {
-              final documents = querySnapShot.data?.docs;
-              print(documents?[0]['text']);
-              // print(documents?[1]['text']);
-
-              if (querySnapShot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                return ListView.builder(
-                  itemCount: documents?.length,
-                  itemBuilder: (context, i) => Container(
-                    child: Text(
-                      documents?[i]['text'],
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                );
+      appBar: AppBar(
+        title: Text('dimChat'),
+        backgroundColor: Theme.of(context).primaryColor,
+        actions: [
+          DropdownButton(
+            icon: Icon(
+              Icons.more_vert,
+              color: Theme.of(context).primaryIconTheme.color,
+            ),
+            items: [
+              DropdownMenuItem(
+                value: 'Logout',
+                child: Container(
+                  child: const Text('Logout'),
+                ),
+              )
+            ],
+            onChanged: (itemValue) {
+              if (itemValue == 'Logout') {
+                FirebaseAuth.instance.signOut();
               }
-            }),
+            },
+          )
+        ],
       ),
+      body: Messages(),
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
           chatHandler
