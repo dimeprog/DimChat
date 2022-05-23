@@ -1,4 +1,5 @@
 import 'package:dimchat/widgets/chats/messages.dart';
+import 'package:dimchat/widgets/chats/new_message.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -43,19 +44,15 @@ class _ChatScreenState extends State<ChatScreen> {
           )
         ],
       ),
-      body: Messages(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (() {
-          chatHandler
-              .add({
-                'text': 'added by clicking button',
-              })
-              .then((value) => print('successfully added'))
-              .onError(
-                (error, stackTrace) => print('$error'),
-              );
-        }),
-        child: const Icon(Icons.add),
+      body: Container(
+        child: Column(
+          children: [
+            Expanded(
+              child: Messages(),
+            ),
+            Newessage(),
+          ],
+        ),
       ),
     );
   }

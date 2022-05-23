@@ -1,10 +1,14 @@
+import 'package:dimchat/widgets/chats/chat_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Messages extends StatelessWidget {
-  final Stream<QuerySnapshot> _chatStream =
-      FirebaseFirestore.instance.collection('chat').snapshots();
-
+  final Stream<QuerySnapshot> _chatStream = FirebaseFirestore.instance
+      .collection('chat')
+      .orderBy('createAt', descending: true)
+      .snapshots();
+  final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,18 +24,14 @@ class Messages extends StatelessWidget {
               );
             } else {
               return ListView.builder(
+                reverse: true,
                 itemCount: documents?.length,
-                itemBuilder: (context, i) => Container(
-                  child: chatSnapShot.data != null
-                      ? Text(
-                          documents?[i]['text'],
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      : const Text('No chat yet'),
-                ),
+                itemBuilder: (context, i) => chatSnapShot.data != null
+                    ? ChatBubble(
+                        documents?[i]['text'],
+                        documents?[i]['userId'] == user!.uid,
+                      )
+                    : const Text('no chat yet'),
               );
             }
           }),
