@@ -9,6 +9,7 @@ class Messages extends StatelessWidget {
       .orderBy('createAt', descending: true)
       .snapshots();
   final user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,6 +31,10 @@ class Messages extends StatelessWidget {
                     ? ChatBubble(
                         documents?[i]['text'],
                         documents?[i]['userId'] == user!.uid,
+                        documents?[i]['username'],
+                        key: ValueKey(
+                          documents?[i].id,
+                        ),
                       )
                     : const Text('no chat yet'),
               );
